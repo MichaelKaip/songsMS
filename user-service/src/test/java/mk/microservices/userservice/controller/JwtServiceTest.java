@@ -1,10 +1,10 @@
-package mk.microservices.songsservice.controller;
+package mk.microservices.userservice.controller;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import mk.microservices.songsservice.model.User;
-import mk.microservices.songsservice.services.JwtTokenService;
+import mk.microservices.userservice.model.User;
+import mk.microservices.userservice.services.JwtTokenService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -20,7 +20,12 @@ public class JwtServiceTest {
     public static final String SECRET = "7VOfkWnIapAjJ/DiTm1h1B3wJWOOkZgUZPm+StLJ2QWkOx+7oaM0xpDI3xtiAp9PZ5qzajbFMXnuvmojDNRd6Oa9sllFi7vmMrtAWEObuDSG2cJDscpd42evQbdWaZQ7876wzqBzz75SfHKd9In2C81bthiVOMWdsOARGPrrHYs=";
     public static final int EXPIRY_IN_SECONDS = 60;
 
-    private static final User USER = User.builder().userId("hpotter").firstName("Harald").lastName("Töpfer").password("GoldenSnitch1991").build();
+    private static final User USER = User.builder()
+            .userId("hpotter")
+            .firstName("Harald")
+            .lastName("Töpfer")
+            .password("GoldenSnitch1991")
+            .build();
 
     private final JwtTokenService underTest = new JwtTokenService(SECRET, EXPIRY_IN_SECONDS);
 
@@ -79,6 +84,4 @@ public class JwtServiceTest {
 
         assertNull(underTest.validateTokenAndGetUserId(expiredToken));
     }
-
 }
-

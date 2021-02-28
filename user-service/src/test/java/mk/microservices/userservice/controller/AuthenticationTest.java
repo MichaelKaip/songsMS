@@ -1,12 +1,14 @@
-package mk.microservices.songsservice.controller;
+package mk.microservices.userservice.controller;
 
-import mk.microservices.songsservice.auth.JwtAuthenticatedUser;
-import mk.microservices.songsservice.auth.JwtAuthentication;
-import mk.microservices.songsservice.auth.JwtAuthenticationProvider;
-import mk.microservices.songsservice.auth.JwtAuthenticationTokenFilter;
-import mk.microservices.songsservice.dao.UserDAO;
-import mk.microservices.songsservice.model.User;
-import mk.microservices.songsservice.services.JwtTokenService;
+import mk.microservices.userservice.auth.JwtAuthenticatedUser;
+import mk.microservices.userservice.auth.JwtAuthentication;
+import mk.microservices.userservice.auth.JwtAuthenticationProvider;
+import mk.microservices.userservice.auth.JwtAuthenticationTokenFilter;
+import mk.microservices.userservice.dao.UserDao;
+import mk.microservices.userservice.model.User;
+import mk.microservices.userservice.services.JwtTokenService;
+import static mk.microservices.userservice.controller.JwtServiceTest.EXPIRY_IN_SECONDS;
+import static mk.microservices.userservice.controller.JwtServiceTest.SECRET;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +23,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import static mk.microservices.songsservice.controller.JwtServiceTest.EXPIRY_IN_SECONDS;
-import static mk.microservices.songsservice.controller.JwtServiceTest.SECRET;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -31,10 +31,15 @@ import static org.mockito.Mockito.when;
 public class AuthenticationTest {
 
     private final JwtTokenService jwtService = new JwtTokenService(SECRET, EXPIRY_IN_SECONDS);
-    private static final User USER = User.builder().userId("hpotter").firstName("Harald").lastName("Töpfer").password("GoldenSnitch1991").build();
+    private static final User USER = User.builder()
+            .userId("hpotter")
+            .firstName("Harald")
+            .lastName("Töpfer")
+            .password("GoldenSnitch1991")
+            .build();
 
     @Mock
-    private UserDAO userDAO;
+    private UserDao userDao;
     private String token;
 
     @BeforeEach
@@ -61,16 +66,14 @@ public class AuthenticationTest {
 
     @Test
     void testJwtAuthAttemptIsVerified() {
-        when(userDAO.getUserById(USER.getUserId())).thenReturn(USER);
+        when(userDao.getUserById(USER.getUserId())).thenReturn(USER);
         JwtAuthentication tokenAuth = new JwtAuthentication(token);
 
-        Authentication processedAuth = new JwtAuthenticationProvider(jwtService, userDAO).authenticate(tokenAuth);
+        Authentication processedAuth = new JwtAuthenticationProvider(jwtService, userDao).authenticate(tokenAuth);
 
         assertNotNull(processedAuth);
         assertTrue(processedAuth.isAuthenticated());
         assertTrue(processedAuth instanceof JwtAuthenticatedUser);
         assertEquals(USER.getUserId(), processedAuth.getPrincipal());
     }
-
-
 }

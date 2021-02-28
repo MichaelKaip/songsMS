@@ -1,10 +1,10 @@
-package mk.microservices.songsservice.controller;
+package mk.microservices.userservice.controller;
 
 import lombok.AllArgsConstructor;
-import mk.microservices.songsservice.dao.UserDAO;
-import mk.microservices.songsservice.model.Accessor;
-import mk.microservices.songsservice.model.User;
-import mk.microservices.songsservice.services.JwtTokenService;
+import mk.microservices.userservice.dao.UserDao;
+import mk.microservices.userservice.model.Accessor;
+import mk.microservices.userservice.model.User;
+import mk.microservices.userservice.services.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private final UserDAO userDao;
+    private final UserDao userDao;
     private final JwtTokenService tokenService;
 
     @PostMapping(value = "/auth", headers = "Accept=application/json", produces = {MediaType.TEXT_PLAIN_VALUE})

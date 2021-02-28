@@ -1,9 +1,9 @@
-package mk.microservices.songsservice.controller;
+package mk.microservices.userservice.controller;
 
-import mk.microservices.songsservice.auth.JwtAuthenticatedUser;
-import mk.microservices.songsservice.dao.UserDAO;
-import mk.microservices.songsservice.model.User;
-import mk.microservices.songsservice.services.JwtTokenService;
+import mk.microservices.userservice.auth.JwtAuthenticatedUser;
+import mk.microservices.userservice.dao.UserDao;
+import mk.microservices.userservice.model.User;
+import mk.microservices.userservice.services.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class AuthControllerTest {
 
-    private UserDAO userDao;
+    private UserDao userDao;
     private MockMvc mockMvc;
     private User user_valid;
     private User user_invalid;
@@ -29,7 +29,7 @@ class AuthControllerTest {
 
     @BeforeEach
     void setup() {
-        userDao = mock(UserDAO.class);
+        userDao = mock(UserDao.class);
         tokenService = mock(JwtTokenService.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new AuthController(userDao, tokenService)).build();
 
@@ -68,8 +68,8 @@ class AuthControllerTest {
     void authorize_No_matching_userid_pw_combi_should_return_401() {
         when(userDao.getUserById(any(String.class))).thenReturn(user_invalid);
         try {
-            String accessorjson = "{\"userid\":\"gibtsnicht\",\"password\":\"passtnicht\"}";
-            mockMvc.perform(post("/auth").content(accessorjson).contentType(MediaType.APPLICATION_JSON))
+            String accessorJson = "{\"userid\":\"gibtsnicht\",\"password\":\"passtnicht\"}";
+            mockMvc.perform(post("/auth").content(accessorJson).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isUnauthorized());
             verifyZeroInteractions(tokenService);
         } catch (Exception e) {

@@ -1,7 +1,7 @@
-package mk.microservices.songsservice.services;
+package mk.microservices.userservice.services;
 
 import io.jsonwebtoken.*;
-import mk.microservices.songsservice.model.User;
+import mk.microservices.userservice.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

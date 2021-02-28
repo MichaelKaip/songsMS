@@ -1,4 +1,4 @@
-package mk.microservices.songsservice.model;
+package mk.microservices.userservice.model;
 
 import lombok.Data;
 
@@ -7,5 +7,4 @@ public class Accessor {
 
     private String userId;
     private String password;
-
 }

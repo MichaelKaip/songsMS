@@ -1,9 +1,9 @@
-package mk.microservices.songsservice.config;
+package mk.microservices.userservice.config;
 
 import lombok.AllArgsConstructor;
-import mk.microservices.songsservice.auth.JwtAuthenticationEntryPoint;
-import mk.microservices.songsservice.auth.JwtAuthenticationProvider;
-import mk.microservices.songsservice.auth.JwtAuthenticationTokenFilter;
+import mk.microservices.userservice.auth.JwtAuthenticationEntryPoint;
+import mk.microservices.userservice.auth.JwtAuthenticationProvider;
+import mk.microservices.userservice.auth.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

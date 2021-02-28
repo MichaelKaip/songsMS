@@ -1,7 +1,7 @@
-package mk.microservices.songsservice.auth;
+package mk.microservices.userservice.auth;
 
 import lombok.AllArgsConstructor;
-import mk.microservices.songsservice.model.User;
+import mk.microservices.userservice.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

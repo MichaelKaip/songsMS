@@ -1,4 +1,4 @@
-package mk.microservices.songsservice.auth;
+package mk.microservices.userservice.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
