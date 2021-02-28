@@ -1,0 +1,5 @@
+mk/microservices/songsservice/controller/AuthControllerTest.class
+mk/microservices/songsservice/controller/SongControllerTest.class
+mk/microservices/songsservice/SongsServiceApplicationTests.class
+mk/microservices/songsservice/controller/AuthenticationTest.class
+mk/microservices/songsservice/controller/JwtServiceTest.class
