@@ -25,8 +25,7 @@ public class SongListController {
     private final UserDAO userDAO;
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<SongList> getSongListXml(
-            @PathVariable(value = "id") Integer id) {
+    public ResponseEntity<SongList> getSongListXml(@PathVariable(value = "id") Integer id) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         SongList songList = songListDAO.findById(id);
 

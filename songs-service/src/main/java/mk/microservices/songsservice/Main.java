@@ -49,7 +49,7 @@ public class Main {
         tomcat.setBaseDir(tempPath.toString());
 
         //The port that we should run on can be set into an environment variable
-        //Look for that variable and default to 8080 if it isn't there.
+        //Look for that variable and default to 8082 if it isn't there.
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
             webPort = "8082";
@@ -73,8 +73,10 @@ public class Main {
 
         WebResourceSet resourceSet;
         if (additionWebInfClassesFolder.exists()) {
-            resourceSet = new DirResourceSet(resources, "/WEB-INF/classes", additionWebInfClassesFolder.getAbsolutePath(), "/");
-            System.out.println("loading WEB-INF resources from as '" + additionWebInfClassesFolder.getAbsolutePath() + "'");
+            resourceSet = new DirResourceSet(resources, "/WEB-INF/classes",
+                    additionWebInfClassesFolder.getAbsolutePath(), "/");
+            System.out.println("loading WEB-INF resources from as '" +
+                    additionWebInfClassesFolder.getAbsolutePath() + "'");
         } else {
             resourceSet = new EmptyResourceSet(resources);
         }

@@ -52,7 +52,7 @@ public class Main {
         tomcat.setBaseDir(tempPath.toString());
 
         //The port that we should run on can be set into an environment variable
-        //Look for that variable and default to 8080 if it isn't there.
+        //Look for that variable and default to 8081 if it isn't there.
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
             webPort = "8081";
