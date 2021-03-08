@@ -1,9 +1,9 @@
-package mk.microservices.userservice.config;
+package mk.microservices.songsservice.config;
 
 import lombok.AllArgsConstructor;
-import mk.microservices.userservice.auth.JwtAuthenticationEntryEndPoint;
-import mk.microservices.userservice.auth.JwtAuthenticationProvider;
-import mk.microservices.userservice.auth.JwtAuthenticationTokenFilter;
+import mk.microservices.songsservice.auth.JwtAuthenticationEntryPoint;
+import mk.microservices.songsservice.auth.JwtAuthenticationProvider;
+import mk.microservices.songsservice.auth.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @PropertySource("classpath:jwt.properties")
 public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtAuthenticationEntryEndPoint unauthorizedHandler;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
     private final JwtAuthenticationProvider authProvider;
 
     @Bean

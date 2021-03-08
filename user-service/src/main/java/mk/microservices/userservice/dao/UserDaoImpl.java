@@ -1,6 +1,7 @@
 package mk.microservices.userservice.dao;
 
 import mk.microservices.userservice.model.User;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@Service
 public class UserDaoImpl implements UserDao {
 
     protected EntityManagerFactory emf;
@@ -15,7 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     @PostConstruct
     public void init() {
-        this.emf = Persistence.createEntityManagerFactory("songsWSb");
+        this.emf = Persistence.createEntityManagerFactory("user-service");
         this.em = emf.createEntityManager();
     }
 

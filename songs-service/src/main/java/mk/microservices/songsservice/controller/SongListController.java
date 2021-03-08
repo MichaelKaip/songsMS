@@ -2,9 +2,7 @@ package mk.microservices.songsservice.controller;
 
 import lombok.AllArgsConstructor;
 import mk.microservices.songsservice.dao.SongListDAO;
-import mk.microservices.songsservice.dao.UserDAO;
 import mk.microservices.songsservice.model.SongList;
-import mk.microservices.songsservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ import java.util.Objects;
 public class SongListController {
 
     private final SongListDAO songListDAO;
-    private final UserDAO userDAO;
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<SongList> getSongListXml(@PathVariable(value = "id") Integer id) {
@@ -32,7 +29,7 @@ public class SongListController {
         if (songList == null)
             return ResponseEntity.notFound().build();
 
-        if (songList.isPrivate() && !Objects.equals(userId, songList.getSongListOwner().getUserId()))
+        if (songList.isPrivate() && !Objects.equals(userId, songList.getSongListOwner()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         return ResponseEntity.ok(songList);
@@ -49,13 +46,12 @@ public class SongListController {
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> postNewSongList(@RequestBody SongList newSongList) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        User user = userDAO.getUserById(userId);
 
         if (newSongList.getSongListName() == null || newSongList.getSongListName().equals("") ||
                 newSongList.getSongListName().trim().isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        newSongList.setSongListOwner(user);
+        newSongList.setSongListOwner(userId);
         int id = songListDAO.saveSongList(newSongList);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
@@ -72,7 +68,7 @@ public class SongListController {
         SongList list = songListDAO.findById(id);
 
         if (list == null) return ResponseEntity.notFound().build();
-        if (!Objects.equals(list.getSongListOwner().getUserId(), userId))
+        if (!Objects.equals(list.getSongListOwner(), userId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         int ret = songListDAO.deleteSongList(id);

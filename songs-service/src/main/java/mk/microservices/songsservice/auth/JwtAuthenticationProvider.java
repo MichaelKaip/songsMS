@@ -1,7 +1,7 @@
-package mk.microservices.userservice.auth;
+package mk.microservices.songsservice.auth;
 
 import lombok.AllArgsConstructor;
-import mk.microservices.userservice.services.JwtTokenService;
+import mk.microservices.songsservice.services.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

@@ -65,10 +65,10 @@ class AuthControllerTest {
     }
 
     @Test
-    void authorize_No_matching_userid_pw_combi_should_return_401() {
+    void authorize_No_matching_userId_pw_combi_should_return_401() {
         when(userDao.getUserById(any(String.class))).thenReturn(user_invalid);
         try {
-            String accessorJson = "{\"userid\":\"gibtsnicht\",\"password\":\"passtnicht\"}";
+            String accessorJson = "{\"userId\":\"gibtsnicht\",\"password\":\"passtnicht\"}";
             mockMvc.perform(post("/auth").content(accessorJson).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isUnauthorized());
             verifyZeroInteractions(tokenService);
@@ -82,7 +82,7 @@ class AuthControllerTest {
     void dataformat_not_json_should_return_400() {
         when(userDao.getUserById(any(String.class))).thenReturn(user_invalid);
         try {
-            String accessorJson = "<\"userid\":\"gibtsnicht\",\"password\":\"passtnicht\">";
+            String accessorJson = "<\"userId\":\"gibtsnicht\",\"password\":\"passtnicht\">";
             mockMvc.perform(post("/auth").content(accessorJson).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
             verifyZeroInteractions(tokenService);
@@ -94,7 +94,7 @@ class AuthControllerTest {
 
     @Test
     void whois_endpoint_returns_id_of_authenticated_user() throws Exception {
-        JwtAuthenticatedUser auth = new JwtAuthenticatedUser(user_valid);
+        JwtAuthenticatedUser auth = new JwtAuthenticatedUser(user_valid.getUserId());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         mockMvc.perform(get("/whoami"))

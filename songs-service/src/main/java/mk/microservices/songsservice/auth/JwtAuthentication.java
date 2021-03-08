@@ -1,4 +1,4 @@
-package mk.microservices.userservice.auth;
+package mk.microservices.songsservice.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -7,9 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 @AllArgsConstructor
-public class JwtAuthenticatedUser implements Authentication {
+public class JwtAuthentication implements Authentication {
 
-    private final String userId;
+    private final String token;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -17,8 +17,8 @@ public class JwtAuthenticatedUser implements Authentication {
     }
 
     @Override
-    public Object getCredentials() {
-        return null;
+    public String getCredentials() {
+        return token;
     }
 
     @Override
@@ -28,12 +28,12 @@ public class JwtAuthenticatedUser implements Authentication {
 
     @Override
     public String getPrincipal() {
-        return userId;
+        return null;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return true;
+        return false;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class JwtAuthenticatedUser implements Authentication {
 
     @Override
     public String getName() {
-        return "Jwt Authenticated User";
+        return "Jwt Authentication Attempt";
     }
 }

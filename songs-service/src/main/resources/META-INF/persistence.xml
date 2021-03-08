@@ -4,14 +4,14 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://originalverbuggt.de:3306/originalverbuggt"/>
-            <property name="javax.persistence.jdbc.user" value="originalverbuggt"/>
-            <property name="javax.persistence.jdbc.password" value="originalverbuggt0815"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-54-155-208-5.eu-west-1.compute.amazonaws.com:5432/d91gbl9n54n9c3"/>
+            <property name="javax.persistence.jdbc.user" value="kskcuwwqnqrglx"/>
+            <property name="javax.persistence.jdbc.password" value="610d78c73e1873d1d8909ea053344bd9401b27d640b41d716cb34ba9b1dbb080"/>
 
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
         </properties>
         
     </persistence-unit>

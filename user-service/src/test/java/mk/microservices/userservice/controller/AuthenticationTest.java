@@ -7,8 +7,6 @@ import mk.microservices.userservice.auth.JwtAuthenticationTokenFilter;
 import mk.microservices.userservice.dao.UserDao;
 import mk.microservices.userservice.model.User;
 import mk.microservices.userservice.services.JwtTokenService;
-import static mk.microservices.userservice.controller.JwtServiceTest.EXPIRY_IN_SECONDS;
-import static mk.microservices.userservice.controller.JwtServiceTest.SECRET;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +21,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import static mk.microservices.userservice.controller.JwtServiceTest.EXPIRY_IN_SECONDS;
+import static mk.microservices.userservice.controller.JwtServiceTest.SECRET;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -66,10 +66,9 @@ public class AuthenticationTest {
 
     @Test
     void testJwtAuthAttemptIsVerified() {
-        when(userDao.getUserById(USER.getUserId())).thenReturn(USER);
-        JwtAuthentication tokenAuth = new JwtAuthentication(token);
 
-        Authentication processedAuth = new JwtAuthenticationProvider(jwtService, userDao).authenticate(tokenAuth);
+        JwtAuthentication tokenAuth = new JwtAuthentication(token);
+        Authentication processedAuth = new JwtAuthenticationProvider(jwtService).authenticate(tokenAuth);
 
         assertNotNull(processedAuth);
         assertTrue(processedAuth.isAuthenticated());

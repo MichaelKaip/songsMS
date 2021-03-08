@@ -2,7 +2,6 @@ package mk.microservices.songsservice.dao;
 
 import mk.microservices.songsservice.exception.NotFoundException;
 import mk.microservices.songsservice.model.SongList;
-import mk.microservices.songsservice.model.User;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -50,9 +49,10 @@ public class SongListDAOImpl implements SongListDAO {
 
     @Override
     public List<SongList> findListsOf(String userId) {
-        User songListOwner = em.find(User.class, userId);
-        if (songListOwner == null) throw new NotFoundException();
-        return songListOwner.getSongLists();
+        Query query = em.createQuery("SELECT * from SongList where songListOwner = unserid");
+        List<SongList> resultsList = query.getResultList();
+        if (resultsList.isEmpty()) throw new NotFoundException();
+        return resultsList;
     }
 
     @Override

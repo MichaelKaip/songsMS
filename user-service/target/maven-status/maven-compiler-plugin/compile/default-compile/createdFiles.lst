@@ -1,0 +1,14 @@
+mk/microservices/userservice/auth/JwtAuthenticationProvider.class
+mk/microservices/userservice/dao/UserDao.class
+mk/microservices/userservice/auth/JwtAuthenticatedUser.class
+mk/microservices/userservice/auth/JwtAuthenticationEntryEndPoint.class
+mk/microservices/userservice/dao/UserDaoImpl.class
+mk/microservices/userservice/config/AuthenticationConfig.class
+mk/microservices/userservice/controller/AuthController.class
+mk/microservices/userservice/services/JwtTokenService.class
+mk/microservices/userservice/auth/JwtAuthenticationTokenFilter.class
+mk/microservices/userservice/model/User.class
+mk/microservices/userservice/auth/JwtAuthentication.class
+mk/microservices/userservice/model/User$UserBuilder.class
+mk/microservices/userservice/model/Accessor.class
+mk/microservices/userservice/UserServiceApplication.class

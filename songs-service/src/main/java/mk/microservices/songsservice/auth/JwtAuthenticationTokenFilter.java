@@ -1,4 +1,4 @@
-package mk.microservices.userservice.auth;
+package mk.microservices.songsservice.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 

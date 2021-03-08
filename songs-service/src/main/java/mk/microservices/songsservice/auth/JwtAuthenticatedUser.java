@@ -1,4 +1,4 @@
-package mk.microservices.userservice.auth;
+package mk.microservices.songsservice.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;

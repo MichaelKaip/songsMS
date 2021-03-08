@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "beleg4_songlists")
+@Table(name = "songlists")
 public class SongList {
 
     @Id
@@ -21,9 +21,7 @@ public class SongList {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "ownerId")
-    private User songListOwner;
+    private String songListOwner;
 
     @Column(name = "name")
     private String songListName;
@@ -32,7 +30,7 @@ public class SongList {
     private boolean isPrivate;
 
     @ManyToMany
-    @JoinTable(name = "beleg4_songs_to_list",
+    @JoinTable(name = "songs_to_list",
             joinColumns = {@JoinColumn(name = "listId", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "songId", referencedColumnName = "id")})
     private List<Song> songs;
