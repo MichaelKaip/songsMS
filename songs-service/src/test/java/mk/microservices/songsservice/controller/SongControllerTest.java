@@ -193,7 +193,7 @@ class SongControllerTest {
             ObjectMapper objectMapper=new ObjectMapper();
             String songJson = objectMapper.writeValueAsString(song1_valid);
             mockMvc.perform(post("/songs").content(songJson).contentType(MediaType.APPLICATION_JSON).header("Authorization", "randomstring"))
-                    .andExpect(header().string("Location", "/localhost:8080/rest/songs/1"))
+                    .andExpect(header().string("Location", "/localhost:8080/songs/1"))
                     .andExpect(status().isCreated());
         }catch(Exception e){
             e.printStackTrace();

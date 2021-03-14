@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @RestController
 @AllArgsConstructor(onConstructor_ = @Autowired)
-@RequestMapping(value = "/songLists")
+@RequestMapping(value = "/songlists")
 public class SongListController {
 
     private final SongListDAO songListDAO;
@@ -55,7 +55,7 @@ public class SongListController {
         int id = songListDAO.saveSongList(newSongList);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
-            headers.set("Location", "/songsWS-originalverbuggt/rest/songLists/" + id);
+            headers.set("Location", "/localhost:8082/songLists/" + id);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
 

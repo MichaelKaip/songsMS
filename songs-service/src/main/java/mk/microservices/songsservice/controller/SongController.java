@@ -70,7 +70,7 @@ public class SongController {
 
         if (id != -1) {
             HttpHeaders headers = new HttpHeaders();
-            headers.set("Location", "/localhost:8080/rest/songs/" + id);
+            headers.set("Location", "/localhost:8080/songs/" + id);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

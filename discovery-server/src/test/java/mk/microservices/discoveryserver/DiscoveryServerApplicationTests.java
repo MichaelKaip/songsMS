@@ -1,10 +1,10 @@
-package mk.microservices.songsapigateway;
+package mk.microservices.discoveryserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SongsApiGatewayApplicationTests {
+class DiscoveryServerApplicationTests {
 
     @Test
     void contextLoads() {
