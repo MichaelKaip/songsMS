@@ -1,13 +1,13 @@
-package mk.microservice.apigatewayservice;
+package mk.microservices.songsinfoservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiGatewayServiceApplication {
+public class SongsInfoServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiGatewayServiceApplication.class, args);
+        SpringApplication.run(SongsInfoServiceApplication.class, args);
     }
 
 }

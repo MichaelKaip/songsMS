@@ -1,6 +1,7 @@
 package mk.microservices.songsservice.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mk.microservices.songsservice.dao.SongDAO;
 import mk.microservices.songsservice.model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
