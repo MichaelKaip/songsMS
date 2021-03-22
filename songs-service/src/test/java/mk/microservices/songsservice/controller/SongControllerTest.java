@@ -69,7 +69,8 @@ class SongControllerTest {
     void getSongJSON_success() {
         when(songDAO.getSongById(1)).thenReturn(song1_valid);
         try {
-            mockMvc.perform(get("/songs/1").header("Authorization","randomstring")).andExpect(status().isOk())
+            mockMvc.perform(get("/songs/1").header("Authorization","randomstring"))
+                    .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id").value(1))
                     .andExpect(jsonPath("$.title").value("Test Title 1"))
