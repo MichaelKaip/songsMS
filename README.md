@@ -15,5 +15,5 @@ The Project contains of the following Microservics:
 
 ## Service Architecture
 
-![Uploading image.png…]()
+![image](https://user-images.githubusercontent.com/27303233/112891838-e4bf2580-90d8-11eb-8509-fd70d10cd04f.png)
 
