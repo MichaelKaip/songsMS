@@ -15,4 +15,4 @@ The Project contains of the following Microservics:
 
 ## Service Architecture
 
-![service-architecture](https://user-images.githubusercontent.com/27303233/92715150-5e6e0c80-f35d-11ea-9bcc-050d210b146d.png)
+![image](https://user-images.githubusercontent.com/27303233/112891240-2dc2aa00-90d8-11eb-8b78-b88e9e7a7dca.png)
