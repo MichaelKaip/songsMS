@@ -32,8 +32,21 @@ public class GatewayConfig {
                         .uri("lb://songs-service/songs")
                 )
                 .route(r -> r
+                .path("/songs")
+                .uri("lb://songs-service/songlists")
+                )
+                .route(r -> r
                         .path("/songlists/**")
                         .filters(f -> f.rewritePath("/songlists/(?<songListId>.*)", "songlists/${songlistId}"))
+                        .uri("lb://songs-service/songlists")
+                )
+                .route(r -> r
+                        .path("/songsinfo")
+                        .uri("lb://songs-info-service/songsinfo")
+                )
+                .route(r -> r
+                        .path("/songsinfo/**")
+                        .filters(f -> f.rewritePath("/songsinfo/(?<songId>.*)", "songlists/${songId}"))
                         .uri("lb://songs-service/songlists")
                 )
                 .build();

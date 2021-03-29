@@ -3,6 +3,7 @@ package mk.microservices.songsservice.controller;
 import lombok.AllArgsConstructor;
 import mk.microservices.songsservice.dao.SongListDAO;
 import mk.microservices.songsservice.model.SongList;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class SongListController {
         if (songList == null)
             return ResponseEntity.notFound().build();
 
-        if (songList.isPrivate() && !Objects.equals(userId, songList.getSongListOwner()))
+        if (songList.getIsPrivate() && !Objects.equals(userId, songList.getSongListOwner()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         return ResponseEntity.ok(songList);
@@ -37,7 +38,9 @@ public class SongListController {
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<SongList>> getSongListsForUser(@RequestParam("userId") String ownerId) {
+
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
         return ResponseEntity.ok(userId.equals(ownerId)
                 ? songListDAO.findListsOf(userId)
                 : songListDAO.findPublicListsOf(ownerId));
@@ -60,6 +63,33 @@ public class SongListController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping(value = "/{songListId}", consumes = "application/json")
+    public ResponseEntity<Void>updateSongList(@PathVariable Integer songListId, @RequestBody SongList songList) {
+
+        String userId  = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        // Make sure the name is set
+        if (Strings.isBlank(songList.getSongListName())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // Get the list from database
+        SongList toBeUpdatedSongList = songListDAO.findById(songListId);
+        // Make sure the songlist exists
+        if (toBeUpdatedSongList == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        // Verify the songlist owner
+        if (!Objects.equals(toBeUpdatedSongList.getSongListOwner(), userId)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        if (songListDAO.updateSongList(songList) == 1) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @DeleteMapping(value = "{id}")

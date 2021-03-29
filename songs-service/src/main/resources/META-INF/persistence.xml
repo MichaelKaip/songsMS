@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version ="2.0">
-    <persistence-unit name="songsWSb">
+    <persistence-unit name="songs-service">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <properties>

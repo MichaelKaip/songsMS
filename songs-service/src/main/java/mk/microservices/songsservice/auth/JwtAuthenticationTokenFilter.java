@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 

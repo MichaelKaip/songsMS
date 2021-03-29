@@ -39,6 +39,13 @@ public interface SongListDAO {
     int saveSongList(SongList songList);
 
     /**
+     * Updates an existing songlist in the database.
+     * @param songList A Songlist with the update information
+     * @return 0, if the songlist couldn't be found or in case of an error occurred and 1 otherwise
+     */
+    int updateSongList(SongList songList);
+
+    /**
      * Deletes a songlist from the database
      * @param id The id of the song list to be deleted.
      * @return 0, if the song list couldn't be deleted and 1 in case of success.

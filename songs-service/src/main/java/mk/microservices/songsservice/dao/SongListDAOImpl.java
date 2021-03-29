@@ -2,6 +2,7 @@ package mk.microservices.songsservice.dao;
 
 import mk.microservices.songsservice.exception.NotFoundException;
 import mk.microservices.songsservice.model.SongList;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,7 @@ public class SongListDAOImpl implements SongListDAO {
 
     @PostConstruct
     public void init() {
-        this.emf = Persistence.createEntityManagerFactory("songsWSb");
+        this.emf = Persistence.createEntityManagerFactory("songs-service");
         this.em = emf.createEntityManager();
     }
 
@@ -49,16 +50,16 @@ public class SongListDAOImpl implements SongListDAO {
 
     @Override
     public List<SongList> findListsOf(String userId) {
-        Query query = em.createQuery("SELECT * from SongList where songListOwner = unserid");
-        List<SongList> resultsList = query.getResultList();
-        if (resultsList.isEmpty()) throw new NotFoundException();
-        return resultsList;
+
+        return em.createQuery("SELECT sl from SongList sl where songListOwner = :userId")
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     @Override
     public List<SongList> findPublicListsOf(String userId) {
         return findListsOf(userId).stream()
-                .filter(not(SongList::isPrivate))
+                .filter(not(SongList::getIsPrivate))
                 .collect(Collectors.toList());
     }
 
@@ -87,6 +88,46 @@ public class SongListDAOImpl implements SongListDAO {
         transaction.rollback();
         return 0;
     }
+
+    @Override
+    public int updateSongList(SongList songList) {
+        EntityTransaction eta = em.getTransaction();
+        eta.begin();
+        Query query = em.createQuery("SELECT s.id from Song s");
+        List<Integer> ids = query.getResultList();
+
+        boolean allSongsExist = true;
+
+        if (songList.getSongs() != null)
+            allSongsExist = songList.getSongs().stream().allMatch(song -> ids.contains(song.getId()));
+        if (!allSongsExist) {
+            eta.rollback();
+            return 0;
+        }
+        // Get the songslist from database
+        SongList toBeUpdatedSongList = em.find(SongList.class, songList.getId());
+
+        // Update name
+        toBeUpdatedSongList.setSongListName(songList.getSongListName());
+        // Update privacy
+        toBeUpdatedSongList.setIsPrivate(songList.getIsPrivate());
+        // Update Owner
+        toBeUpdatedSongList.setSongListOwner(songList.getSongListOwner());
+        // Update Songs
+        toBeUpdatedSongList.setSongs(songList.getSongs());
+
+        // Commit
+        try {
+            eta.commit();
+            Hibernate.isInitialized(toBeUpdatedSongList.getSongs());
+            return 1;
+        } catch (Exception e) {
+            // If something goes wrong make sure not to change anything inside the database
+            eta.rollback();
+            return 0;
+        }
+    }
+
 
     @Override
     @Transactional(rollbackOn = Throwable.class)

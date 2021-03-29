@@ -20,7 +20,7 @@ public class SongDAOImpl implements SongDAO {
 
     @PostConstruct
     public void init() {
-        this.emf = Persistence.createEntityManagerFactory("songsWSb");
+        this.emf = Persistence.createEntityManagerFactory("songs-service");
         this.em = emf.createEntityManager();
     }
 
