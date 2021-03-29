@@ -5,13 +5,10 @@ The Project contains of the following Microservics:
 
 | Service Name | Default Port Mapping | Description |
 | --------| -----|-------|
-| SongsMS Songs Discovery Server | 8761 | A Microservice providing Service Discovery for all Services within the SongsMS Microservices Project. |
-| SongsMS Config Server | 8888 | A Microservice providing dynamic configurations for all services within the project from an [external source](https://github.com/MichaelKaip/songsMS-config-server-repo) |
-| SongsMS Config Server Repo | | Repository for configurations for the SongsMS Microservices Project |
-| SongsMS API Gateway | 8080 | Provides an API Gateway for securing the Microservices |
-| SongsMS User Service | 8081 | A Microservice for administrating User Data |
-| SongsMS Songs Service | 8082 | A Microservice for administrating songs and providing user-related list of songs |
-| SongsMS Songs Info Service | 8083 | A Microservice for providing additional song-related information. |
+| api-gateway-service | 8080 | Provides an API Gateway for securing the Microservices |
+| user-service | 8081 | Provides an endpoint for authentication |
+| songs-service | 8082 | Provides endpoints for administrating songs and and song-lists. User can have private and/or public songlists. |
+| -songs-info-service | 8083 | A Microservice for providing additional song-related information. |
 
 ## Service Architecture
 
